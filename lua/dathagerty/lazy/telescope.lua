@@ -7,6 +7,7 @@ return {
             "nvim-telescope/telescope-project.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
+            -- NOTE: marked for deletion
             "olacin/telescope-cc.nvim",
             "nvim-telescope/telescope-dap.nvim",
             "jvgrootveld/telescope-zoxide",
@@ -42,7 +43,6 @@ return {
 						require("telescope.themes").get_dropdown({})
 					},
                     conventional_commits = {
-                        theme = "ivy",
                         include_body_and_footer = true,
                     },
 				},
@@ -52,6 +52,7 @@ return {
 			require("telescope").load_extension("file_browser")
 			require("telescope").load_extension("ui-select")
 			require("telescope").load_extension("noice")
+            -- TODO: maybe get rid of conventional_commits? Or make my own?
 			require("telescope").load_extension("conventional_commits")
             require("telescope").load_extension("dap")
             require("telescope").load_extension("zoxide")
