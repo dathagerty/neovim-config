@@ -1,10 +1,10 @@
-local function supermaven_status()
+local function supermaven_running()
     return require("supermaven-nvim.api").is_running
 end
 
 local function supermaven()
     local status = "✗"
-    if supermaven_status() then
+    if supermaven_running() then
         status = "✓"
     end
     return "supermaven: " .. status
