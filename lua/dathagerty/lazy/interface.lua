@@ -27,11 +27,12 @@ return {
 	},
 	{
 		"folke/noice.nvim",
+        version = "4.4.7",
 		event = "VeryLazy",
 		opts = {
-            messages = {
-                view = "mini",
-            },
+            -- messages = {
+            --     view = "mini",
+            -- },
 			lsp = {
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,

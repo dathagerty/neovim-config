@@ -1,15 +1,3 @@
-local function supermaven_running()
-    return require("supermaven-nvim.api").is_running
-end
-
-local function supermaven()
-    local status = "✗"
-    if supermaven_running() then
-        status = "✓"
-    end
-    return "supermaven: " .. status
-end
-
 return {
 	{
 		"nvim-lualine/lualine.nvim",
@@ -24,39 +12,91 @@ return {
 					component_separators = "",
 					section_separators = { left = "", right = "" },
 					theme = "catppuccin",
-					globalstatus = true
+					globalstatus = true,
+                    extensions = { "lazy", "fugitive", "mason" },
 				},
 				sections = {
-                    lualine_a = {"mode"},
-                    lualine_b = {"branch"},
+                    lualine_a = {
+                        {
+                            "mode"
+                        },
+                    },
+                    lualine_b = {
+                        {
+                            "branch",
+                            on_click = function ()
+                                vim.cmd.Git()
+                            end,
+                        },
+                        {
+                            "diff",
+                            symbols = {
+                                added = " ",
+                                modified = " ",
+                                removed = " ",
+                            },
+                        },
+                    },
                     lualine_c = {
-                        "filename",
                         "location",
+                        "filename",
                     },
 					lualine_x = {
                         {
-                            -- TODO: make this section prettier (colors)
-                            supermaven
-                        }
+                            "searchcount",
+                        },
+                        {
+                            require("lazy.status").updates,
+                            cond = require("lazy.status").has_updates,
+                        },
 					},
                     lualine_y = {
                         {
-                            "diagnostics"
+                            "diagnostics",
+                            always_visible = true,
+                            sources = { "nvim_diagnostic" },
+                            on_click = function ()
+                                require("trouble").toggle("diagnostics")
+                            end
                         },
                         {
-                            "searchcount",
+                            "filetype",
                         },
                     },
                     lualine_z = {
+                        {
+                            "datetime",
+                            style = "iso",
+                        },
                     },
 				},
                 tabline = {
-                    lualine_a = {"buffers"},
+                    lualine_a = {"tabs"},
+                    lualine_b = {"buffers"},
+                    lualine_c = {},
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = {
+                        function ()
+                            local ok, pomo = pcall(require, "pomo")
+                            if not ok then
+                                return ""
+                            end
+                            local timer = pomo.get_first_to_finish()
+                            if timer == nil then
+                                return ""
+                            end
+                            return "󰄉 " .. tostring(timer)
+                        end
+                    },
+                },
+                winbar = {
+                    lualine_a = {},
                     lualine_b = {},
                     lualine_c = {},
                     lualine_x = {},
                     lualine_y = {},
-                    lualine_z = {"tabs"},
+                    lualine_z = {},
                 },
 				-- TODO: customize sections
 				-- remove file format, encoding, progress

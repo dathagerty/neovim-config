@@ -1,32 +1,33 @@
-vim.opt.scrolloff = 8
+local options = vim.opt
+options.scrolloff = 8
 
-vim.opt.termguicolors = true
-vim.opt.background = 'dark'
+options.termguicolors = true
+options.background = 'dark'
 
-vim.opt.number = true
-vim.opt.relativenumber = true
+options.number = true
+options.relativenumber = true
 
-vim.opt.colorcolumn = '80'
-vim.opt.signcolumn = 'yes'
+options.colorcolumn = '80'
+options.signcolumn = 'yes'
 
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+options.splitright = true
+options.splitbelow = true
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+options.hlsearch = false
+options.incsearch = true
+options.ignorecase = true
+options.smartcase = true
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+options.swapfile = false
+options.backup = false
+options.undodir = os.getenv("HOME") .. "/.vim/undodir"
+options.undofile = true
 
-vim.opt.vb = true
+options.vb = true
 
-vim.opt.isfname:append("@-@")
+options.isfname:append("@-@")
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+options.tabstop = 4
+options.softtabstop = 4
+options.shiftwidth = 4
+options.expandtab = true

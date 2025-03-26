@@ -1,5 +1,4 @@
 return {
-    -- TODO: Move snippets here?
     {
         "neovim/nvim-lspconfig",
         lazy = false,
@@ -8,17 +7,46 @@ return {
             "b0o/schemastore.nvim",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "j-hui/fidget.nvim",
+            "neovim/nvim-lspconfig",
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "petertriho/cmp-git",
+            "hrsh7th/cmp-nvim-lua",
+            "saadparwaiz1/cmp_luasnip",
+            {
+                'L3MON4D3/LuaSnip',
+                version = 'v2.*',
+                build = 'make install_jsregexp'
+            },
         },
         config = function()
-            require("fidget").setup({})
-
             local mason = require("mason")
             local mason_config = require("mason-lspconfig")
             local lspconfig = require("lspconfig")
-            local cmp = require("cmp")
             local cmp_lsp = require("cmp_nvim_lsp")
             local capabilities = cmp_lsp.default_capabilities()
+
+            vim.diagnostic.config({
+                underline = true,
+                update_in_insert = false,
+                severity_sort = true,
+                virtual_text = {
+                    spacing = 4,
+                    source = "if_many",
+                    prefix = "●",
+                },
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "",
+                        [vim.diagnostic.severity.WARN] = "",
+                        [vim.diagnostic.severity.HINT] = "",
+                        [vim.diagnostic.severity.INFO] = "",
+                    },
+                },
+                -- float = {},
+            })
 
             mason.setup({})
             mason_config.setup({
@@ -29,6 +57,7 @@ return {
                     "jsonls",
                     "yamlls",
                 },
+                automatic_installation = false,
                 handlers = {
                     function (server_name)
                         lspconfig[server_name].setup({
@@ -48,7 +77,6 @@ return {
                                     usePlaceholders = true,
                                     analyses = {
                                         unusedparams = true,
-                                        fieldalignment = true,
                                         shadow = true,
                                         unusedvariable = true,
                                         useany = true,
@@ -72,11 +100,11 @@ return {
                             },
                         })
                     end,
-                    ["rust_analyzer"] = function ()
+                    rust_analyzer = function ()
                         lspconfig.rust_analyzer.setup({
                             capabilities = capabilities,
                             settings = {
-                                ["rust-analyzer"] = {
+                                ['rust-analyzer'] = {
                                     cargo = {
                                         allFeatures = true,
                                     },
@@ -94,7 +122,7 @@ return {
                             },
                         })
                     end,
-                    ["lua_ls"] = function ()
+                    lua_ls = function ()
                         lspconfig.lua_ls.setup({
                             capabilities = capabilities,
                             settings = {
@@ -134,14 +162,14 @@ return {
                     end,
                 },
             })
-            vim.keymap.set("n", "<space>m", vim.cmd.Mason, { desc = "open mason" })
 
             -- Global mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+            vim.keymap.set("n", "<space>m", vim.cmd.Mason, { desc = "open mason" })
             vim.keymap.set("n", "<space>cd", vim.diagnostic.open_float, { desc = "open diagnostics" })
             -- TODO: move to trouble?
-            vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic" })
-            vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic" })
+            -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic" })
+            -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic" })
             vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "add diagnostics to location list" })
 
             -- Use LspAttach autocommand to only map the following keys
@@ -178,25 +206,7 @@ return {
                     end, { buffer = ev.buf, desc = "list workspace folders" })
                 end,
             })
-        end
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        -- load cmp on InsertEnter
-        event = { "InsertEnter", "CmdlineEnter" },
-        -- these dependencies will only be loaded when cmp loads
-        -- dependencies are always lazy-loaded unless specified otherwise
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "petertriho/cmp-git",
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-nvim-lua"
-        },
-        config = function()
+
             local luasnip = require("luasnip")
             local cmp = require("cmp")
             cmp.setup({

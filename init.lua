@@ -1,5 +1,7 @@
 require("dathagerty")
 
+local options = vim.o
+
 if vim.g.neovide then
-	vim.o.guifont = 'MonaspiceXe_Nerd_Font:h14'
+	options.guifont = 'Vulf Mono,Cascadia Code:h18'
 end

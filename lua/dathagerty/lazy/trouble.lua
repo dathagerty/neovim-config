@@ -4,7 +4,9 @@ return {
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function ()
             local trouble = require("trouble")
-            trouble.setup({})
+            trouble.setup({
+                auto_close = true,
+            })
 
             vim.keymap.set("n", "]d", function ()
                 trouble.next({ skip_groups = true, jump= true })
@@ -25,9 +27,7 @@ return {
             vim.keymap.set("n", "<leader>tL", function ()
                 trouble.toggle("loclist")
             end, { desc = "toggle trouble (loclist)" })
-            vim.keymap.set("n", "<leader>tl", function ()
-                trouble.toggle("lsp")
-            end, { desc = "toggle trouble (lsp)" })
+            vim.keymap.set("n", "<leader>tl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "toggle trouble (lsp)" })
             vim.keymap.set("n", "<leader>tq", function ()
                 trouble.toggle("quickfix")
             end, { desc = "toggle trouble (quickfix)" })
@@ -39,14 +39,17 @@ return {
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		opts = {},
         config = function ()
-            local todo_comments = require("todo-comments")
-            todo_comments.setup({})
+            local todo = require("todo-comments")
+            todo.setup({})
             local telescope = require("telescope")
             telescope.load_extension("todo-comments")
 
             vim.keymap.set("n", "<leader>bt", function ()
                 telescope.extensions["todo-comments"].todo()
             end, { desc = "browse todos" })
+            vim.keymap.set("n", "<leader>tt", function ()
+                vim.cmd.TodoTrouble()
+            end, { desc = "toggle trouble (todos)" })
         end
 	},
 }

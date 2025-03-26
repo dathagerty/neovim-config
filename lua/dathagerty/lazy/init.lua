@@ -9,13 +9,16 @@ return {
 		lazy = false,
 		priority = 900,
 	},
-	{
-		'folke/neodev.nvim',
-		opts = {
-			library = {
-				plugins = { 'nvim-dap-ui' },
-				types = true,
-			}
-		}
-	},
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        dependencies = {
+            "justinsgithub/wezterm-types",
+        },
+        opts = {
+            library = {
+                { path = "wezterm-types", mods = { "wezterm" } },
+            },
+        },
+    },
 }

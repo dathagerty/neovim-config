@@ -8,13 +8,16 @@ return {
 	},
 	{
 		'ThePrimeagen/git-worktree.nvim',
+        config = true,
 	},
 	{
 		'akinsho/git-conflict.nvim',
 		version = "*",
+        config = true,
 	},
 	{
 		'lewis6991/gitsigns.nvim',
+        config = true,
 	},
 	{
 		'notjedi/nvim-rooter.lua',
