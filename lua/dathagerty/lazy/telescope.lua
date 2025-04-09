@@ -7,11 +7,10 @@ return {
             "nvim-telescope/telescope-project.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
-            -- NOTE: marked for deletion
             "olacin/telescope-cc.nvim",
             "nvim-telescope/telescope-dap.nvim",
             "jvgrootveld/telescope-zoxide",
-            "polirritmico/telescope-lazy-plugins.nvim",
+            "GianniBYoung/chezmoi-telescope.nvim",
             { url = "https://codeberg.org/elfahor/telescope-just.nvim" },
             {
                 "pwntester/octo.nvim",
@@ -51,12 +50,11 @@ return {
 			require("telescope").load_extension("project")
 			require("telescope").load_extension("file_browser")
 			require("telescope").load_extension("ui-select")
-			require("telescope").load_extension("noice")
-            -- TODO: maybe get rid of conventional_commits? Or make my own?
+			require("telescope").load_extension("notify")
 			require("telescope").load_extension("conventional_commits")
             require("telescope").load_extension("dap")
             require("telescope").load_extension("zoxide")
-            require("telescope").load_extension("lazy_plugins")
+            require("telescope").load_extension("chezmoi")
 
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>bp", function ()

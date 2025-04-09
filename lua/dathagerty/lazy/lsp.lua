@@ -100,6 +100,7 @@ return {
                             },
                         })
                     end,
+                    -- TODO: maybe migrate to rustaceanvim?
                     rust_analyzer = function ()
                         lspconfig.rust_analyzer.setup({
                             capabilities = capabilities,
@@ -256,10 +257,11 @@ return {
                     { name = "nvim_lsp" },
                     { name = "luasnip" },
                     { name = "supermaven" },
-                }, {
-                        { name = "path" },
-                        { name = "buffer" }
-                    }),
+                },
+                {
+                    { name = "path" },
+                    { name = "buffer" }
+                }),
 
                 experimental = {
                     ghost_text = true,
@@ -270,9 +272,9 @@ return {
                 sources = cmp.config.sources({
                     { name = "path" }
                 },
-                    {
-                        { name = "cmdline" }
-                    }),
+                {
+                    { name = "cmdline" }
+                }),
                 matching = { disallow_symbol_nonprefix_matching = false }
             })
             cmp.setup.cmdline({ "/", "?" }, {
@@ -292,9 +294,10 @@ return {
             cmp.setup.filetype("gitcommit", {
                 sources = cmp.config.sources({
                     { name = "git" },
-                }, {
-                        { name = "buffer" },
-                    })
+                },
+                {
+                    { name = "buffer" },
+                })
             })
         end
     },

@@ -1,5 +1,8 @@
 return {
     'mrjones2014/smart-splits.nvim',
+    enabled = function ()
+        return os.getenv("WEZTERM_EXECUTABLE") ~= nil;
+    end,
     lazy = false,
     config = function ()
         vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left)

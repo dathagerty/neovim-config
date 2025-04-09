@@ -10,28 +10,17 @@ return {
 			require('mini.comment').setup()
 			require('mini.cursorword').setup()
 			require('mini.extra').setup()
-			require('mini.files').setup({
-				options = {
-					permanent_delete = false,
-				},
-				windows = {
-					preview = true,
-				},
-			})
 			require('mini.hipatterns').setup({
 				highlighters = {
 					hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
 				}
 			})
 
-			local map = require('mini.map')
-            map.setup()
-			-- require('mini.pairs').setup()
-			require('mini.starter').setup()
+			require('mini.map').setup()
 			require('mini.surround').setup()
-			-- require('mini.tabline').setup()
-
-            vim.keymap.set('n', '<leader>M', map.toggle)
+            require('mini.sessions').setup({
+                autoread = true,
+            })
 		end
 	},
 }

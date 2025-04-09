@@ -43,6 +43,10 @@ return {
                     },
 					lualine_x = {
                         {
+                            "copilot",
+                            show_colors = true,
+                        },
+                        {
                             "searchcount",
                         },
                         {
@@ -56,7 +60,7 @@ return {
                             always_visible = true,
                             sources = { "nvim_diagnostic" },
                             on_click = function ()
-                                require("trouble").toggle("diagnostics")
+                                Snacks.picker.diagnostics()
                             end
                         },
                         {
@@ -66,7 +70,7 @@ return {
                     lualine_z = {
                         {
                             "datetime",
-                            style = "iso",
+                            style = "iso"
                         },
                     },
 				},

@@ -39,13 +39,18 @@ return {
 		config = function ()
             require("catppuccin").setup({
                 integrations = {
-                    fidget = true,
+                    harpoon = true,
                     lsp_trouble = true,
                     mason = true,
                     neotest = true,
                     noice = true,
                     notify = true,
                     octo = true,
+                    snacks = {
+                        enabled = true,
+                        indent_scope_color = "sapphire",
+                    },
+                    which_key = true,
                }
             })
 			vim.cmd.colorscheme('catppuccin')
