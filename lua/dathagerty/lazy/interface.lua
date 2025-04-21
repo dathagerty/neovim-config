@@ -33,15 +33,13 @@ return {
             bigfile = { enabled = true },
             dashboard = {
                 enabled = true,
-                example = 'advanced',
+                example = "advanced",
             },
             dim = { enabled = true },
             explorer = { enabled = true },
             indent = { enabled = true },
-            -- input = { enabled = true },
             lazygit = { enabled = true },
             picker = { enabled = true },
-            -- notifier = { enabled = true },
             quickfile = { enabled = true },
             scope = { enabled = true },
             scroll = { enabled = true },
@@ -53,23 +51,23 @@ return {
             { "<leader>fb", function() Snacks.picker.files() end,         desc = "browse working directory" },
             { "<leader>fe", function() Snacks.explorer() end,             desc = "file explorer" },
             { "<leader>bt", function() Snacks.picker.todo_comments() end, desc = "browse todos" },
+            { "<leader>gg", function() Snacks.lazygit() end,              desc = "lazygit" },
+            { "<leader>z",  function() Snacks.zen() end,                  desc = "zen mode" },
+            { "<leader>Z",  function() Snacks.zen.zoom() end,             desc = "zoom mode" },
+            { "<leader>bc", function() Snacks.picker.colorschemes() end,  desc = "browse colorschemes" },
         },
         init = function()
             vim.api.nvim_create_autocmd("User", {
                 pattern = "VeryLazy",
                 callback = function()
-
                     -- Create some toggle mappings
                     Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
                     Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
-                    Snacks.toggle.option("conceallevel",
-                        { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
-                    Snacks.toggle.treesitter():map("<leader>uT")
                     Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map(
-                    "<leader>tb")
-                    Snacks.toggle.inlay_hints():map("<leader>th")
+                        "<leader>tb")
+                    Snacks.toggle.inlay_hints():map("<leader>ch")
                     Snacks.toggle.indent():map("<leader>tg")
-                    Snacks.toggle.dim():map("<leader>tD")
+                    Snacks.toggle.dim():map("<leader>td")
                 end,
             })
         end
@@ -111,5 +109,12 @@ return {
             k.set("n", "<C-S-P>", function() harpoon:list():prev() end, { desc = "previous harpoon" })
             k.set("n", "<C-S-N>", function() harpoon:list():next() end, { desc = "next harpoon" })
         end
+    },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+        opts = {
+            file_types = { "markdown", "copilot-chat" },
+        },
     },
 }

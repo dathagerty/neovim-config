@@ -1,21 +1,21 @@
 return {
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		lazy = false,
-		config = function()
-			vim.opt.showmode = false
-			require("lualine").setup({
-				options = {
-					component_separators = "",
-					section_separators = { left = "", right = "" },
-					theme = "catppuccin",
-					globalstatus = true,
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        lazy = false,
+        config = function()
+            vim.opt.showmode = false
+            require("lualine").setup({
+                options = {
+                    component_separators = "",
+                    section_separators = { left = "", right = "" },
+                    theme = "auto",
+                    globalstatus = true,
                     extensions = { "lazy", "fugitive", "mason" },
-				},
-				sections = {
+                },
+                sections = {
                     lualine_a = {
                         {
                             "mode"
@@ -24,8 +24,8 @@ return {
                     lualine_b = {
                         {
                             "branch",
-                            on_click = function ()
-                                vim.cmd.Git()
+                            on_click = function()
+                                Snacks.lazygit()
                             end,
                         },
                         {
@@ -38,13 +38,27 @@ return {
                         },
                     },
                     lualine_c = {
-                        "location",
                         "filename",
+                        "location",
                     },
-					lualine_x = {
+                    lualine_x = {
                         {
                             "copilot",
+                            symbols = {
+                                status = {
+                                    hl = {
+                                        enabled = require("catppuccin.palettes").get_palette().green,
+                                        sleep = require("catppuccin.palettes").get_palette().overlay1,
+                                        disabled = require("catppuccin.palettes").get_palette().subtext1,
+                                        warning = require("catppuccin.palettes").get_palette().peach,
+                                        unknown = require("catppuccin.palettes").get_palette().red,
+                                    }
+                                },
+                                spinners = "dots", -- has some premade spinners
+                                spinner_color = require("catppuccin.palettes").get_palette().sapphire
+                            },
                             show_colors = true,
+                            show_loading = true
                         },
                         {
                             "searchcount",
@@ -53,13 +67,13 @@ return {
                             require("lazy.status").updates,
                             cond = require("lazy.status").has_updates,
                         },
-					},
+                    },
                     lualine_y = {
                         {
                             "diagnostics",
                             always_visible = true,
                             sources = { "nvim_diagnostic" },
-                            on_click = function ()
+                            on_click = function()
                                 Snacks.picker.diagnostics()
                             end
                         },
@@ -73,15 +87,15 @@ return {
                             style = "iso"
                         },
                     },
-				},
+                },
                 tabline = {
-                    lualine_a = {"tabs"},
-                    lualine_b = {"buffers"},
+                    lualine_a = { "tabs" },
+                    lualine_b = { "buffers" },
                     lualine_c = {},
                     lualine_x = {},
                     lualine_y = {},
                     lualine_z = {
-                        function ()
+                        function()
                             local ok, pomo = pcall(require, "pomo")
                             if not ok then
                                 return ""
@@ -102,11 +116,11 @@ return {
                     lualine_y = {},
                     lualine_z = {},
                 },
-				-- TODO: customize sections
-				-- remove file format, encoding, progress
-				-- move diagnostics to right
-				-- move location next to filename
-			})
-		end
-	},
+                -- TODO: customize sections
+                -- remove file format, encoding, progress
+                -- move diagnostics to right
+                -- move location next to filename
+            })
+        end
+    },
 }

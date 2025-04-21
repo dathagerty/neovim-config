@@ -35,6 +35,7 @@ return {
 		config = function()
 			require("telescope").setup {
 				extensions = {
+                    fzf = {},
 					file_browser = {
 						hijack_netrw = true,
 					},
